@@ -1,0 +1,19 @@
+{
+  "name": "desafio-ripley",
+  "version": "1.0.0",
+  "description": "Desafío para ripley.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TesslaRay/desafio-ripley.git"
+  },
+  "author": "CristianValdivia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TesslaRay/desafio-ripley/issues"
+  },
+  "homepage": "https://github.com/TesslaRay/desafio-ripley#readme"
+}
