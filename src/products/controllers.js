@@ -1,4 +1,4 @@
-const {getProductFromDB} = require('../services/firestore');
+const {getProductFromDB, addProductToDB, deleteProductFromDB} = require('../services/firestore');
 
 exports.getProduct = async (req, res) => {
   console.log('[desafio-ripley][GET][getProduct][Request] ', req.params, req.body);
@@ -10,6 +10,36 @@ exports.getProduct = async (req, res) => {
   } catch (err) {
     console.log('[desafio-ripley][GET][getProduct][Error]:', err);
 
+    res.status(500).json(err);
+  }
+};
+
+exports.createProduct = async (req, res) => {
+  console.log('[desafio-ripley][POST][createProduct][Request] ', req.params, req.body);
+  const {product} = req.body;
+  try {
+    const ref = await addProductToDB(product);
+    console.log('[desafio-ripley][POST][createProduct][Response]', {
+      newProduct: product.name,
+    });
+    res.status(200).send({newProduct: product.name});
+  } catch (err) {
+    console.log('[desafio-ripley][POST][createProduct][Error]', err);
+    res.status(500).json(err);
+  }
+};
+
+exports.deleteProduct = async (req, res) => {
+  console.log('[desafio-ripley][DELETE][deleteProduct][Request]', req.params, req.body);
+
+  try {
+    await deleteProductFromDB(req.params);
+    console.log('[desafio-ripley][DELETE][deleteProduct][Response]', {
+      deleteProduct: req.params,
+    });
+    res.status(200).send({deleteProduct: req.params.id});
+  } catch (err) {
+    console.log('[desafio-ripley][DELETE][deleteProduct][Error]', err);
     res.status(500).json(err);
   }
 };
