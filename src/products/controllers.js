@@ -1,4 +1,9 @@
-const {getProductFromDB, addProductToDB, deleteProductFromDB} = require('../services/firestore');
+const {
+  getProductFromDB,
+  addProductToDB,
+  deleteProductFromDB,
+  updateProductFromDB,
+} = require('../services/firestore');
 
 exports.getProduct = async (req, res) => {
   console.log('[desafio-ripley][GET][getProduct][Request] ', req.params, req.body);
@@ -40,6 +45,23 @@ exports.deleteProduct = async (req, res) => {
     res.status(200).send({deleteProduct: req.params.id});
   } catch (err) {
     console.log('[desafio-ripley][DELETE][deleteProduct][Error]', err);
+    res.status(500).json(err);
+  }
+};
+
+exports.updateProduct = async (req, res) => {
+  console.log('[desafio-ripley][PUT][updateProduct][Request]', req.body);
+  const id = req.body.id;
+  const product = req.body.product;
+
+  try {
+    await updateProductFromDB(id, product);
+    console.log('[desafio-ripley][PUT][updateProduct][Response]', {
+      updateProduct: product,
+    });
+    res.status(200).send({updateProduct: product});
+  } catch (err) {
+    console.log('[desafio-ripley][PUT][updateProduct][Error]', err);
     res.status(500).json(err);
   }
 };

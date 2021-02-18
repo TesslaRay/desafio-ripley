@@ -45,6 +45,23 @@ exports.getProductFromDB = async (id) => {
   }
 };
 
+exports.updateProductFromDB = async (id, product) => {
+  console.log('[desafio-ripley][Firestore][updateProductFromDB]');
+
+  try {
+    const ref = await productsRef
+      .where('id', '==', parseInt(id))
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          productsRef.doc(doc.id).update(product);
+        });
+      });
+    return ref;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 exports.deleteProductFromDB = async (id) => {
   console.log('[desafio-ripley][Firestore][deleteProductFromDB]');
   try {
