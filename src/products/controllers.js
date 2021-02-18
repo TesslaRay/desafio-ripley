@@ -3,6 +3,7 @@ const {
   addProductToDB,
   deleteProductFromDB,
   updateProductFromDB,
+  getAllProductsFromDB,
 } = require('../services/firestore');
 
 exports.getProduct = async (req, res) => {
@@ -62,6 +63,20 @@ exports.updateProduct = async (req, res) => {
     res.status(200).send({updateProduct: product});
   } catch (err) {
     console.log('[desafio-ripley][PUT][updateProduct][Error]', err);
+    res.status(500).json(err);
+  }
+};
+
+exports.getAllProducts = async (req, res) => {
+  console.log('[desafio-ripley][GET][getAllProducts][Request] ', req.params, req.body);
+  try {
+    const productsInfo = await getAllProductsFromDB();
+    console.log('[desafio-ripley][GET][getAllProducts][response] ', productsInfo);
+
+    res.status(200).send(productsInfo);
+  } catch (err) {
+    console.log('[desafio-ripley][GET][getAllProducts][Error]:', err);
+
     res.status(500).json(err);
   }
 };
