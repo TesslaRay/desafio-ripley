@@ -28,7 +28,7 @@ exports.createProduct = async (req, res) => {
     console.log('[desafio-ripley][POST][createProduct][Response]', {
       newProduct: product.name,
     });
-    res.status(200).send({newProduct: product.name});
+    res.status(200).send(product);
   } catch (err) {
     console.log('[desafio-ripley][POST][createProduct][Error]', err);
     res.status(500).json(err);

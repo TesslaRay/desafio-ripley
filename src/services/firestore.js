@@ -16,6 +16,7 @@ const productsRef = db.collection('products');
 
 exports.addProductToDB = async (product) => {
   console.log('[desafio-ripley][Firestore][addProductToDB]');
+  product.id = Math.floor(Math.random() * 999);
   try {
     const ref = await productsRef.add(product);
 
